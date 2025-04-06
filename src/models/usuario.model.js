@@ -26,12 +26,12 @@ const UsuarioModel = {
     return result.rows[0];
   },
 
-  async criar({ nome, email, telefone, senha }) {
+  async criar({ nome, email, telefone, qtd_processos, senha }) {
     const result = await pool.query(`
-      INSERT INTO usuarios (nome, email, telefone, senha)
-      VALUES ($1, $2, $3, $4)
-      RETURNING *
-    `, [nome, email, telefone, senha]);
+      INSERT INTO usuarios (nome, email, telefone, qtd_processos, senha)
+      VALUES ($1, $2, $3, $4, $5)
+      RETURNING id, nome, email, telefone, qtd_processos, criado_em
+    `, [nome, email, telefone, qtd_processos, senha]);
     return result.rows[0];
   },
 
